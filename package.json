@@ -1,0 +1,13 @@
+{
+  "name": "command-Vault",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "ejs": "^2.3.1",
+    "express": "~4.1.1",
+    "jade": "~1.11.0"
+  },
+  "author": "Sneh Raj Lakhotia",
+  "contributors" : []
+}
