@@ -2,11 +2,17 @@
   "name": "command-Vault",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "body-parser": "^1.13.1",
+    "less-middleware": "^0.1.15",
     "ejs": "^2.3.1",
+    "mongoose": "^4.2.6",
     "express": "~4.1.1",
-    "jade": "~1.11.0"
+    "jade": "~1.11.0",
+    "mongodb": "^2.0.14"
   },
   "author": "Sneh Raj Lakhotia",
   "contributors" : []
