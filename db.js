@@ -1,28 +1,50 @@
 (function() {
     'use strict';
-    var mongoose = require('mongoose'),
-        db,
-        Schema;
+    var connectionReference,
+        createConnection,
+        getConnection,
+        q = require('q');
 
-    // mongoose.connect('mongodb://localhost/command_db');
-    // db = mongoose.connection;
-    var MongoClient = require('mongodb').MongoClient,
-        Server = require('mongodb').Server;
+    createConnection = function createConnection() {
+        var MongoClient,
+            Server,
+            defer = q.defer();
+        if(!connectionReference) {
+            MongoClient = require('mongodb').MongoClient;
+            Server = require('mongodb').Server;
 
-    // var mongoClient = new MongoClient(new Server('localhost', 27017));
+            MongoClient.connect('mongodb://localhost:27017/command_db', function(err, db) {
+                if(err) {
+                    defer.reject();
+                }
+                connectionReference = db;
+                db.createCollection('categories', function(err, collection) {
+                    if(err) {}
+                    defer.resolve();
+                });
+            });
+        }
+        return defer.promise;
+    };
 
-    MongoClient.connect('mongodb://localhost:27017/testDb', function(err, db) {
-        db.createCollection('test', function(err, collection) {});
-    });
-    // mongoClient.open(function(err, mongoClient) {
-    //     var db1 = mongoClient.db('command_db')
-    // });
+    getConnection = function getConnection() {
+        var defer = q.defer();
+        if(!connectionReference) {
+            createConnection().then(function() {
+                defer.resolve(connectionReference);
+            })
+            .catch(function() {
+                defer.reject();
+            })
+            .done();
+        } else {
+            defer.resolve(connectionReference);
+        }
+        return defer.promise;
+    }
 
-    /*db.once('open', function(cb) {
-        var sc = mongoose.Schema({
-            test: String
-        });
-
-        var mod = mongoose.model('test_schema', sc);
-    });*/
+    module.exports = {
+        createConnection: createConnection,
+        getConnection: getConnection
+    }
 }());
