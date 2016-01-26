@@ -1,7 +1,9 @@
 var db = require('../db'),
-    mongo = require('mongodb');
+    mongo = require('mongodb'),
+    getCategoryById,
+    getAllCategories;
 
-exports.getCategoryById = function getCategoryById (req, res) {
+getCategoryById = function getCategoryById (req, res) {
     var id = req.params.id ? new mongo.ObjectID(req.params.id) : null;
     db.getConnection().then(function(connection) {
         var collection = connection.collection('categories').findOne({"_id":id}, function(err, data) {
@@ -10,7 +12,7 @@ exports.getCategoryById = function getCategoryById (req, res) {
     });
 };
 
-exports.getAllCategories = function getAllCategories (req, res) {
+getAllCategories = function getAllCategories (req, res) {
     var categoryCollection = [];
     db.getConnection().then(function(connection) {
         var cursor = connection.collection('categories').find();
@@ -23,3 +25,8 @@ exports.getAllCategories = function getAllCategories (req, res) {
         });
     });
 };
+
+module.exports = {
+    getCategoryById: getCategoryById,
+    getAllCategories: getAllCategories
+}

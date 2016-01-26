@@ -16,5 +16,6 @@
     "q": "^1.0"
   },
   "author": "Sneh Raj Lakhotia",
-  "contributors" : []
+  "contributors": [],
+  "devDependencies": {}
 }
