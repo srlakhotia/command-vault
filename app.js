@@ -10,8 +10,11 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     env,
     db = require('./db'),
+    q = require('q'),
+    grunt = require('grunt'),
+    gruntfile = require('./Gruntfile')
     applicationRoutes = require('./routes/application_routes');
-    // applicationFileLoader = require('./auto_loader');
+    applicationFileLoader = require('./load_dependencies');
 
 var app = module.exports = express();
 
@@ -24,18 +27,48 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 env = process.env.NODE_ENV || 'local';
 
+
 /**
  * Start Server
  */
 
 http.createServer(app).listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
+    var basePath = __dirname + '/public/js',
+        fileList = [],
+        haveSubDirs = false,
+        getFilesFromDir = function getFilesFromDir(dir, type) {
+            fs.readdir(dir, function(err, list) {
+                if(err) {return;}
 
+                haveSubDirs = list.some(function(fileOrDir) {
+                    return (fileOrDir.indexOf('.') === -1);
+                });
+
+                list.forEach(function(fileOrDir) {
+                    if(fileOrDir.indexOf('.') === -1) {
+                        getFilesFromDir(dir + '/' + fileOrDir, type);
+                    } else {
+                        if(fileOrDir.substring(fileOrDir.lastIndexOf('.'), fileOrDir.length) === type) {
+                            fileList.push(dir + '/' + fileOrDir);
+                        }
+                    }
+                });
+
+                if(!haveSubDirs) {
+                    applicationFileLoader.loadAllDependencies(fileList, type);
+                }
+            });
+        };
+
+    console.log('Express server listening on port ' + app.get('port'));
+    applicationRoutes.initiateFrameworRoutes(app);
+    // gruntfile(grunt);
     /**
      * Initiating routes
      */
-    applicationRoutes.initiateFrameworRoutes(app);
-    // applicationFileLoader.loadAllDependencies();
+
+    getFilesFromDir(basePath, '.js');
+
     db.createConnection()
         .then(function() {
         console.log('Successfully Connected to Mongo');
