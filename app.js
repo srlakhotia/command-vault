@@ -11,10 +11,10 @@ var express = require('express'),
     env,
     db = require('./db'),
     q = require('q'),
-    grunt = require('grunt'),
-    gruntfile = require('./Gruntfile')
+    gruntfile = require('./Gruntfile'),
     applicationRoutes = require('./routes/application_routes');
-    applicationFileLoader = require('./load_dependencies');
+    // grunt = require('grunt'),
+    // applicationFileLoader = require('./load_dependencies');
 
 var app = module.exports = express();
 
@@ -67,7 +67,7 @@ http.createServer(app).listen(app.get('port'), function () {
      * Initiating routes
      */
 
-    getFilesFromDir(basePath, '.js');
+    // getFilesFromDir(basePath, '.js');
 
     db.createConnection()
         .then(function() {

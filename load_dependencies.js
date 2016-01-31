@@ -7,10 +7,6 @@ var loadAllDependencies;
             fileList.forEach(function(file) {
                 var element;
                 if(type === '.js') {
-                    // element = document.createElement('script');
-                    // element.src = file;
-                    // element.type = 'text/javascript';
-                    // document.body.appendChild(element);
                 }
             });
         }

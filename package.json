@@ -13,13 +13,9 @@
     "express": "~4.1.1",
     "jade": "~1.11.0",
     "mongodb": "^2.0.14",
-    "grunt-contrib-concat": "0.5.x",
     "q": "^1.0"
   },
   "author": "Sneh Raj Lakhotia",
   "contributors": [],
-  "devDependencies": {
-    "grunt": "~0.4.4",
-    "grunt-include-source": "^0.7.1"
-  }
+  "devDependencies": {}
 }
