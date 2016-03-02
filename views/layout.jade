@@ -4,6 +4,11 @@ html
     meta(charset='utf8')
     base(href='/')
     title Command Vault
-    link(rel='text/css', href='/css/app.css')
+
+    each cssFile in appLess
+        +cachedLess(cssFile)
+
+    script(type="text/javascript", src="public/js/less.js")
+
   body(ng-app="commandApp")
     block body

@@ -16,11 +16,11 @@
         registerCommandRoutes();
 
         //Base set to index for all other routes
-        _app.get('*', routes.index);
+        // _app.get('*', routes.index);
     };
 
     registerBaseRoutes = function registerBaseRoutes() {
-        // _app.get('/', routes.index);
+        _app.get('/', routes.index);
         _app.get('/partials/:name', routes.partials);
     };
 

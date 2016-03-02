@@ -1,2 +1,6 @@
 mixin cachedScript(src)
     script(type="text/javascript", src="#{src}")
+
+mixin cachedLess(file, media)
+    - media = media || 'all'
+    link(rel="stylesheet", type="text/less", href="#{file}", media=media)

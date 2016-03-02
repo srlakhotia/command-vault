@@ -6,7 +6,8 @@ var utils = require('../utils');
 
 exports.index = function(req, res){
     res.render('index', {
-        appJs: utils.getAppJs()
+        appJs: utils.getAppJs(),
+        appLess: utils.getAppLess(),
     });
 };
 
