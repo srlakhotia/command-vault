@@ -20,7 +20,7 @@
     };
 
     registerBaseRoutes = function registerBaseRoutes() {
-        _app.get('/', routes.index);
+        // _app.get('/', routes.index);
         _app.get('/partials/:name', routes.partials);
     };
 
@@ -29,7 +29,7 @@
         _app.get('/getAllCategories', categoryHandlers.getAllCategories);
     };
 
-    registerCommandRoutes = function registerCategoryRoutes() {
+    registerCommandRoutes = function registerCommandRoutes() {
 
     };
 

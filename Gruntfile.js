@@ -1,43 +1,43 @@
 module.exports = function(grunt) {
-    // grunt.loadNpmTasks('grunt-include-source');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        // app: {
-        //     scripts: ['public/js/**/*.js']
-        // },
-        // watch: {
-        //     includeSource: {
-        //         files: 'public/js/**/*.js',
-        //         tasks: 'includeSource',
-        //         options: ['added', 'deleted']
-        //     }
-        // },
-        // includeSource: {
-        //     options: {
-        //         basePath: 'public',
-        //         ordering: 'top-down'
-        //     },
-        //     myTarget: {
-        //         files: {
-        //             'views/index.jade': 'views/index.jade'
-        //         }
-        //     }
-        // },
-        concat: {
-          options: {
-            // define a string to put between each file in the concatenated output
-            separator: ';'
-          },
-          dist: {
-            // the files to concatenate
-            src: ['public/js/**/*.js'],
-            // the location of the resulting JS file
-            dest: 'full.js'
-          }
+        jade: {
+            compile: {
+                options: {
+                    pretty: true
+                },
+                files: {
+                    'views/index.html': 'views/index.jade'
+                }
+            }
+        },
+        includeSource: {
+            options: {
+                baseUrl: 'public/js/',
+                templates: {
+                    jade: 'script(src="{filePath}", type="text/javascript")'
+                }
+            },
+            sources: {
+                "js": ["**/*.js"]
+            },
+            myTarget: {
+                files: {
+                    'views/index.html': 'views/index.html'
+                }
+            }
+        },
+        watch: {
+            grunt: { files: ['Gruntfile.js'] },
+            jade: {
+                files: 'views/**/*.jade',
+                tasks: ['jade']
+            }
         }
     });
 
-    grunt.registerTask('concat');
-    grunt.registerTask('default', ['concat']);
+    grunt.loadNpmTasks('grunt-contrib-jade');
+    grunt.loadNpmTasks('grunt-include-source');
+    grunt.registerTask('default', []);
+    grunt.registerTask('serve', 'Convert Jade templates into html templates', ['jade', 'includeSource', 'watch']);
+    grunt.loadNpmTasks('grunt-contrib-watch');
 };

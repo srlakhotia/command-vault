@@ -17,5 +17,10 @@
   },
   "author": "Sneh Raj Lakhotia",
   "contributors": [],
-  "devDependencies": {}
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jade": "^0.15.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-include-source": "^0.7.1"
+  }
 }

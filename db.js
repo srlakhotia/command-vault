@@ -16,10 +16,14 @@
             MongoClient.connect('mongodb://localhost:27017/command_db', function(err, db) {
                 if(err) {
                     defer.reject();
+                    return defer.promise;
                 }
                 connectionReference = db;
                 db.createCollection('categories', function(err, collection) {
-                    if(err) {}
+                    if(err) {
+                        defer.reject();
+                        return defer.promise;
+                    }
                     defer.resolve();
                 });
             });
