@@ -1,11 +1,18 @@
-(function(angular) {
-    var commandApp = angular.module('commandApp', ['ngRoute']);
+var commandApp = angular.module('commandApp', ['ngRoute']);
 
+(function(angular) {
     commandApp.config(function($routeProvider){
         $routeProvider
             .when('/', {
-                templateUrl: '/partials/one',
-                controller: function(){}
+                redirectTo: '/dashboard'
+            })
+            .when('/dashboard', {
+                templateUrl: '/partials/dashboard',
+                controller: 'DashboardController'
+            })
+            .when('/settings', {
+                templateUrl: '/partials/settings',
+                controller: 'SettingsController'
             });
     });
 

@@ -26,6 +26,14 @@
                     }
                     defer.resolve();
                 });
+
+                db.createCollection('settings', function(err, collection) {
+                    if(err) {
+                        defer.reject();
+                        return defer.promise;
+                    }
+                    defer.resolve();
+                });
             });
         }
         return defer.promise;

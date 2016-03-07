@@ -1,0 +1,12 @@
+.settings
+    h2.page-title Settings
+    div.settingsPanel
+        div.row
+            label.left Choose default view
+            .options.right
+                label(for="category") Category
+                input(type="radio", name="category", ng-model="settings.defaultView", value="category", selected="settings.defaultView == 'category'")
+                label(for="command") Command
+                input(type="radio", name="command", ng-model="settings.defaultView", value="command", selected="settings.defaultView == 'command'")
+        div.row
+            button.action(ng-click="saveSettings()") Save

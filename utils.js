@@ -72,6 +72,7 @@ module.exports = {
             });
         };
 
+        addLessFiles(appsRoot, 'starters');
         allLess.push('public/css/app.less');
 
         addLessFiles(appsRoot, 'controllers');

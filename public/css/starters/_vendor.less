@@ -1,0 +1,277 @@
+/* This file contains mixins to reduce the pain of dealing with newer CSS features */
+
+@contentMaxWidth: 1366px;
+@widgetPanelBorderRadius:6px;
+
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+  background: @color;
+  background: -webkit-gradient(linear,
+  left bottom,
+  left top,
+  color-stop(0, @start),
+  color-stop(1, @stop));
+  background: -ms-linear-gradient(bottom,
+  @start,
+  @stop);
+  background: -moz-linear-gradient(center bottom,
+  @start 0%,
+  @stop 100%);
+  background: -o-linear-gradient(@stop,
+  @start);
+
+  // @CSP I have removed this, as it seems IE9 supports both this and ms-linear-gradient, and the result is
+  // sub-par. If we end up supporting IE8, we can either live with no gradient, or bring this back in a way
+  // that only supports IE8. (I hope it doesn't involve conditional comments..)
+  // filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));}
+}
+
+.bw-gradient(@color: #F5F5F5, @start: 0, @stop: 255) {
+  background: @color;
+  background: -webkit-gradient(linear,
+  left bottom,
+  left top,
+  color-stop(0, rgb(@start,@start,@start)),
+  color-stop(1, rgb(@stop,@stop,@stop)));
+  background: -ms-linear-gradient(bottom,
+  rgb(@start,@start,@start) 0%,
+  rgb(@stop,@stop,@stop) 100%);
+  background: -moz-linear-gradient(center bottom,
+  rgb(@start,@start,@start) 0%,
+  rgb(@stop,@stop,@stop) 100%);
+  background: -o-linear-gradient(rgb(@stop,@stop,@stop),
+  rgb(@start,@start,@start));
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",rgb(@stop,@stop,@stop),rgb(@start,@start,@start)));
+}
+
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1, @r: 0, @g: 0, @b: 0) {
+  -webkit-box-shadow: @x-axis @y-axis @blur rgba(@r, @g, @b, @alpha);
+  -moz-box-shadow: @x-axis @y-axis @blur rgba(@r, @g, @b, @alpha);
+  box-shadow: @x-axis @y-axis @blur rgba(@r, @g, @b, @alpha);
+}
+
+.border-radius(@radius: 2px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.border-radius-complex(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+  -webkit-border-top-right-radius: @topright;
+  -webkit-border-bottom-right-radius: @bottomright;
+  -webkit-border-bottom-left-radius: @bottomleft;
+  -webkit-border-top-left-radius: @topleft;
+  -moz-border-radius-topright: @topright;
+  -moz-border-radius-bottomright: @bottomright;
+  -moz-border-radius-bottomleft: @bottomleft;
+  -moz-border-radius-topleft: @topleft;
+  border-top-right-radius: @topright;
+  border-bottom-right-radius: @bottomright;
+  border-bottom-left-radius: @bottomleft;
+  border-top-left-radius: @topleft;
+  .background-clip(padding-box);
+}
+
+.opacity(@opacity: 0.5) {
+  -moz-opacity: @opacity;
+  -khtml-opacity: @opacity;
+  -webkit-opacity: @opacity;
+  opacity: @opacity;
+  @opperc: @opacity * 100;
+  -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+  filter: ~"alpha(opacity=@{opperc})";
+}
+
+.transition-duration(@duration: 0.2s) {
+  -moz-transition-duration: @duration;
+  -webkit-transition-duration: @duration;
+  -o-transition-duration: @duration;
+  transition-duration: @duration;
+}
+
+.transform(...) {
+  -webkit-transform: @arguments;
+  -moz-transform: @arguments;
+  -o-transform: @arguments;
+  transform: @arguments;
+  -ms-transform: @arguments;
+}
+
+.rotation(@deg:5deg){
+  .transform(rotate(@deg));
+}
+
+.scale(@ratio:1.5){
+  .transform(scale(@ratio));
+}
+
+.transition(@object, @duration:0.25s, @ease:ease-in-out) {
+  -webkit-transition: @object @duration @ease;
+  -moz-transition: @object @duration @ease;
+  -o-transition: @object @duration @ease;
+  -ms-transition: @object @duration @ease;
+  transition: @object @duration @ease;
+}
+
+
+.box-sizing(@prop) {
+  -webkit-box-sizing: @prop;
+  -moz-box-sizing: @prop;
+  box-sizing: @prop;
+}
+
+.no-transition {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @spread:2px, @alpha: 0.4) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur @spread rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: inset @horizontal @vertical @blur @spread rgba(0, 0, 0, @alpha);
+  box-shadow: inset @horizontal @vertical @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+.inner-shadow-hex(@horizontal:0, @vertical:1px, @blur:2px, @spread:2px, @hexColor: #000) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur @spread @hexColor;
+  -moz-box-shadow: inset @horizontal @vertical @blur @spread @hexColor;
+  box-shadow: inset @horizontal @vertical @blur @spread @hexColor;
+}
+
+.box-shadow(@arguments) {
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+
+.columns(@colwidth: 250px, @colcount: 0, @colgap: 50px, @columnRuleColor: #EEE, @columnRuleStyle: solid, @columnRuleWidth: 1px) {
+  -moz-column-width: @colwidth;
+  -moz-column-count: @colcount;
+  -moz-column-gap: @colgap;
+  -moz-column-rule-color: @columnRuleColor;
+  -moz-column-rule-style: @columnRuleStyle;
+  -moz-column-rule-width: @columnRuleWidth;
+  -webkit-column-width: @colwidth;
+  -webkit-column-count: @colcount;
+  -webkit-column-gap: @colgap;
+  -webkit-column-rule-color: @columnRuleColor;
+  -webkit-column-rule-style: @columnRuleStyle;
+  -webkit-column-rule-width: @columnRuleWidth;
+  column-width: @colwidth;
+  column-count: @colcount;
+  column-gap: @colgap;
+  column-rule-color: @columnRuleColor;
+  column-rule-style: @columnRuleStyle;
+  column-rule-width: @columnRuleWidth;
+}
+
+.translate(@x:0, @y:0) {
+  .transform(translate(@x, @y));
+}
+
+.background-clip(@argument: padding-box) {
+  -moz-background-clip: @argument;
+  -webkit-background-clip: @argument;
+  background-clip: @argument;
+}
+
+.inset-shadow(@startColor: #DDD, @endColor: #FFF){
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, @startColor), color-stop(0.20, @endColor));
+  background-image: -o-linear-gradient(bottom, @startColor 0%, @endColor 20%);
+  background-image: -moz-linear-gradient(bottom, @startColor 0%, @endColor 20%);
+  background-image: -webkit-linear-gradient(bottom, @startColor 0%, @endColor 20%);
+  background-image: -ms-linear-gradient(bottom, @startColor 0%, @endColor 20%);
+  background-image: linear-gradient(to bottom, @startColor 0%, @endColor 20%);
+}
+
+.animation(@animationName, @duration: 0.25s, @algorithm: ease, @delay: 0s){
+  -webkit-animation: @animationName @duration @algorithm @delay;
+  -ms-animation: @animationName @duration @algorithm @delay;
+  -moz-animation:@animationName @duration @algorithm @delay;
+  -o-animation: @animationName @duration @algorithm @delay;
+  animation: @animationName @duration @algorithm @delay;
+}
+
+.keyframes(@name, @arguments) {
+  @-ms-keyframes @name { @arguments(); }
+  @-moz-keyframes @name { @arguments(); }
+  @-webkit-keyframes @name { @arguments(); }
+  @keyframes @name { @arguments(); }
+}
+
+.animation-fill-mode(@arguments) {
+  -webkit-animation-fill-mode: @arguments;
+  -moz-animation-fill-mode: @arguments;
+  animation-fill-mode: @arguments;
+}
+
+.animation-duration(@arguments) {
+  -webkit-animation-duration: @arguments;
+  -moz-animation-duration: @arguments;
+  animation-duration: @arguments;
+}
+
+/**
+* Begin flexbox mixins (mainly to help with IE10
+**/
+
+.flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flex(@grow, @shrink, @basis) {
+    -webkit-box-flex: @grow @shrink @basis;
+    -moz-box-flex:  @grow @shrink @basis;
+    -webkit-flex:  @grow @shrink @basis;
+    -ms-flex:  @grow @shrink @basis;
+    flex:  @grow @shrink @basis;
+}
+
+.flex-basis(@basis) {
+    -webkit-flex-basis: @basis;
+    -ms-flex-preferred-size: @basis;
+    flex-basis: @basis;
+}
+
+.flex-shrink(@shrink) {
+    -webkit-flex-shrink: @shrink;
+    -ms-flex-negative: @shrink;
+    flex-shrink: @shrink;
+}
+
+.flex-grow(@grow) {
+    -webkit-box-flex: @grow;
+    -webkit-flex-grow: @grow;
+    -ms-flex-positive: @grow;
+    flex-grow: @grow;
+}
+
+.flex-wrap(@wrap) {
+    -webkit-flex-wrap: @wrap;
+    -ms-flex-wrap: @wrap;
+    flex-wrap: @wrap;
+}
+
+.justify-content(@value) {
+  justify-content: @value;
+  flex-pack: @value;
+  -ms-flex-pack: @value;
+  -moz-box-pack: @value;
+  -webkit-box-pack: @value;
+  -webkit-justify-content: @value;
+}
+
+.align-items(@value) {
+    -webkit-box-align: @value;
+    -webkit-align-items: @value;
+    -ms-flex-align: @value;
+    align-items: @value;
+}
+
+/**
+* End flexbox mixins
+**/

@@ -2,9 +2,13 @@ extends layout
 
 include mixins.jade
 block body
-    div this stays same
+    header
+        h1.wrapper Command Vault
 
-    div.view-content(ng-view)
+    div.wrapper
+        aside.left
+            nav-bar
+        .right.view-content(ng-view)
 
     each jsFile in appJs
         +cachedScript(jsFile)

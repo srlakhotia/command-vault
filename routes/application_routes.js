@@ -3,10 +3,12 @@
     var initiateFrameworRoutes,
         routes = require('../routes'),
         categoryHandlers = require('../routes/category_handlers'),
+        preferencesHandlers = require('../routes/preferences_handlers'),
         _app,
         registerBaseRoutes,
         registerCategoryRoutes,
-        registerCommandRoutes;
+        registerCommandRoutes,
+        registerPreferencesRoutes;
 
     initiateFrameworRoutes = function initiateFrameworRoutes(app) {
         _app = app;
@@ -14,7 +16,7 @@
         registerBaseRoutes();
         registerCategoryRoutes();
         registerCommandRoutes();
-
+        registerPreferencesRoutes();
         //Base set to index for all other routes
         // _app.get('*', routes.index);
     };
@@ -31,6 +33,11 @@
 
     registerCommandRoutes = function registerCommandRoutes() {
 
+    };
+
+    registerPreferencesRoutes = function registerPreferencesRoutes() {
+        _app.get('/getAllPreferences', preferencesHandlers.getPreferences);
+        _app.post('/savePreferences', preferencesHandlers.savePreferences);
     };
 
     module.exports = {
