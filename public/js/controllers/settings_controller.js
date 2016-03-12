@@ -8,7 +8,7 @@ commandApp
                     defaultView: 'category'
                 }
             }
-            scope.settings = response;
+            $scope.settings = response;
         });
 
         $scope.saveSettings = function() {
