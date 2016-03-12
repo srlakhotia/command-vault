@@ -37,7 +37,7 @@
 
     registerPreferencesRoutes = function registerPreferencesRoutes() {
         _app.get('/getAllPreferences', preferencesHandlers.getPreferences);
-        _app.post('/savePreferences', preferencesHandlers.savePreferences);
+        _app.put('/savePreferences', preferencesHandlers.savePreferences);
     };
 
     module.exports = {

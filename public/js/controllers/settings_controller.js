@@ -1,10 +1,20 @@
 commandApp
     .controller('SettingsController', ['$scope', 'SettingsService', function($scope, SettingsService) {
-        $scope.settings = {
-            defaultView: 'category'
-        };
+        $scope.settings = {};
+
+        SettingsService.getSettings().then(function(response) {
+            if(!response) {
+                response = {
+                    defaultView: 'category'
+                }
+            }
+            scope.settings = response;
+        });
 
         $scope.saveSettings = function() {
-            SettingsService.saveSettings($scope.settings);
+            SettingsService.saveSettings($scope.settings)
+                .then(function(response) {
+                    $scope.settings = response;
+                });
         };
     }]);

@@ -1,15 +1,31 @@
 commandApp
-    .service('SettingsService', ['$http', function($http) {
+    .service('SettingsService', ['$http', '$q', function($http, $q) {
         var serviceObj = {};
 
+        serviceObj.getSettings = function() {
+            var defer = $q.defer();
+            $http.get('/getAllPreferences')
+                .success(function(response) {
+                    defer.resolve(response)
+                })
+                .error(function(error) {
+                    defer.reject()
+                });
+            return defer.promise;
+        }
+
         serviceObj.saveSettings = function(settingsObj) {
-            $http.post('/savePreferences', settingsObj)
-                .success(function() {
-                    console.log('in success')
+            var defer = $q.defer();
+            settingsObj.defaultView = settingsObj.defaultView || 'category';
+            $http.put('/savePreferences', settingsObj)
+                .success(function(response) {
+                    defer.resolve(response);
                 })
                 .error(function() {
-                    console.log('in error')
+                    defer.reject();
                 });
+
+            return defer.promise;
         };
 
         return serviceObj;

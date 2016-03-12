@@ -22,6 +22,7 @@ app.set('view engine', 'jade');
 
 app.use(express.static(path.join(__dirname, '')));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 env = process.env.NODE_ENV || 'local';
 
