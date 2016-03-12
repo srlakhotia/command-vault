@@ -13,6 +13,15 @@ var commandApp = angular.module('commandApp', ['ngRoute']);
             .when('/settings', {
                 templateUrl: '/partials/settings',
                 controller: 'SettingsController'
+            })
+            .when('/commands', {
+                templateUrl: '/partials/commands',
+                controller: 'CommandsController'
+            })
+            .when('/categories', {
+                templateUrl: '/partials/categories',
+                controller: 'CategoriesController',
+                reloadOnSearch: false
             });
     });
 

@@ -1,4 +1,4 @@
 .nav-bar
     ul
-        li.link(ng-repeat="menuItem in menuItems")
-            span(ng-click="navigateToMenu(menuItem)") {{menuItem}}
+        li.link(ng-repeat="menuItem in menuItems", ng-click="navigateToMenu(menuItem.route)")
+            span {{menuItem.name}}

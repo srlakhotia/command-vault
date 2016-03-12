@@ -1,0 +1,25 @@
+@import '../starters/_vendor.less';
+
+.subnav {
+    ul {
+        list-style-type: none;
+        margin-bottom: -1px;
+        li {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: 1px solid gray;
+            background-color: #99cc33;
+            span {
+                color: #FFF;
+            }
+            &.active {
+                border-bottom: 1px solid #EDFFFB;
+                background-color: #EDFFFB;
+                span {
+                    color: #333;
+                }
+            }
+        }
+    }
+}

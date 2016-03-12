@@ -4,15 +4,23 @@ commandApp
 
         var navBarController = function($scope, $location) {
             $scope.menuItems = [
-                // 'Categories',
-                'Settings'
+                {
+                    name: 'Dashboard',
+                    route: '/dashboard'
+                }, {
+                    name: 'Commands',
+                    route: '/commands'
+                }, {
+                    name: 'Categories',
+                    route: '/categories?v=allCategories'
+                }, {
+                    name: 'Settings',
+                    route: '/settings'
+                }
             ];
 
-            $scope.navigateToMenu = function navigateToMenu(menu) {
-                switch(menu) {
-                    case 'Settings':
-                        $location.url('/settings')
-                }
+            $scope.navigateToMenu = function navigateToMenu(route) {
+                $location.url(route);
             }
         };
 

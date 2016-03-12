@@ -1,0 +1,4 @@
+.subnav
+    ul
+        li(ng-repeat="subnav in navItems", ng-click="callback(subnav.link)")
+            span(ng-click="switchSubnav(subnav.link)") {{subnav.name}}
