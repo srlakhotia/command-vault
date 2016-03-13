@@ -3,7 +3,8 @@ commandApp
         '$scope',
         '$routeParams',
         '$location',
-        function($scope, $routeParams, $location){
+        'CategoryService',
+        function($scope, $routeParams, $location, CategoryService){
             var linkArray = ['allCategories', 'addCategory'];
 
             if(!$routeParams.v || linkArray.indexOf($routeParams.v) === -1) {
@@ -12,12 +13,10 @@ commandApp
 
             $scope.subnavLinks = [{
                 name: 'All Categories',
-                link: 'allCategories',
-                templateUrl: '/partials/all_categories'
+                link: 'allCategories'
             }, {
                 name: 'Add Category',
-                link: 'addCategory',
-                templateUrl: '/partials/add_category'
+                link: 'addCategory'
             }];
 
             var getRequestParams = function getRequestParams(url) {
@@ -54,10 +53,40 @@ commandApp
             $scope.loadRoute = function loadRoute(link) {
                 if(link === 'addCategory') {
                     $scope.currentRoute = '/partials/add_category';
+                    $scope.initCategoryForm();
                 } else if(link === 'allCategories') {
                     $scope.currentRoute = '/partials/all_categories';
+                    $scope.getAllCategories();
                 }
             };
+
+            $scope.initCategoryForm = function initCategoryForm() {
+                $scope.categoryForm = {
+                    name: '',
+                    description: ''
+                };
+            };
+
+
+            $scope.getAllCategories = function getAllCategories() {
+                CategoryService.getAllCategories()
+                    .then(function(response) {
+                        console.log('response::: ', response);
+                        $scope.allCategories = response;
+                    });
+            };
+
+            $scope.getAllCategories();
+
+            $scope.saveCategory = function() {
+                CategoryService.saveCategory($scope.categoryForm)
+                    .then(function(response) {
+                        $location.search('v', 'allCategories');
+                    })
+                    .catch(function(err) {
+                        console.log('err:: ', err)
+                    })
+            }
 
             $scope.loadRoute($routeParams.v);
     }]);

@@ -29,6 +29,7 @@
     registerCategoryRoutes = function registerCategoryRoutes() {
         _app.get('/getCategoryById/:id', categoryHandlers.getCategoryById);
         _app.get('/getAllCategories', categoryHandlers.getAllCategories);
+        _app.post('/saveCategory', categoryHandlers.saveCategory);
     };
 
     registerCommandRoutes = function registerCommandRoutes() {

@@ -36,3 +36,13 @@ button {
 .row {
     overflow: hidden;
 }
+
+input[type="text"], textarea {
+    width: calc(~"79% - 20px");
+    padding: 10px;
+    .inner-shadow(0px, 0px, 3px, 0, 0.5);
+    &:focus {
+        .inner-shadow(0px, 0px, 3px, 0, 0.8);
+        outline: none;
+    }
+}

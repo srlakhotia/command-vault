@@ -1,2 +1,9 @@
 .addCategory
-    span add category
+    form(name="addCategoryForm")
+        .row
+            label(for="name") Name
+            input(type="text", name="name", ng-required="required", ng-model="categoryForm.name")
+        .row
+            label(for="description") Description
+            textarea(name="description", ng-model="categoryForm.description")
+        button(type="submit", ng-click="saveCategory()", ng-disabled="addCategoryForm.$invalid") Save
