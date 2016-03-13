@@ -1,4 +1,4 @@
 .subnav
     ul
-        li(ng-repeat="subnav in navItems", ng-click="callback(subnav.link)")
+        li(ng-repeat="subnav in navItems", ng-click="callback(subnav.link)", ng-class="{'active': (subnav.link === routeParams.v)}")
             span(ng-click="switchSubnav(subnav.link)") {{subnav.name}}
