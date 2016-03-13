@@ -79,6 +79,9 @@ commandApp
             $scope.getAllCategories();
 
             $scope.saveCategory = function() {
+                if(!$scope.categoryForm.name) {
+                    return;
+                }
                 CategoryService.saveCategory($scope.categoryForm)
                     .then(function(response) {
                         $location.search('v', 'allCategories');
