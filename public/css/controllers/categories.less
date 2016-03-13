@@ -26,5 +26,58 @@
                 height: 100px;
             }
         }
+        button {
+            margin-left: 20%;
+        }
+    }
+
+    .allCategories {
+        ul {
+            display: block;
+            li {
+                display: inline-block;
+                text-align: left;
+                &.name {
+                    width: 25%;
+                }
+                &.description {
+                    width: 55%;
+                }
+                &.action {
+                    border: 0 none;
+                }
+            }
+        }
+        ul.categoryTable {
+            & > li {
+                display: block;
+            }
+        }
+        ul.header {
+            border: 1px solid gray;
+            background: #4b5e00;
+            li {
+                border-right: 1px solid gray;
+                padding: 10px;
+                span {
+                    color: white;
+                }
+                &:last-child {
+                    border-right: 0 none;
+                }
+            }
+        }
+        ul.tableContent {
+            border-right: 1px solid gray;
+            border-left: 1px solid gray;
+            border-bottom: 1px solid gray;
+            li {
+                border-right: 1px solid gray;
+                padding: 10px;
+                &:last-child {
+                    border-right: 0 none;
+                }
+            }
+        }
     }
 }

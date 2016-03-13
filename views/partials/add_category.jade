@@ -6,4 +6,5 @@
         .row
             label(for="description") Description
             textarea(name="description", ng-model="categoryForm.description")
-        button(type="submit", ng-click="saveCategory()", ng-disabled="addCategoryForm.$invalid") Save
+        .row
+            button(type="submit", ng-click="saveCategory()", ng-disabled="addCategoryForm.$invalid") Save

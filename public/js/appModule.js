@@ -1,4 +1,4 @@
-var commandApp = angular.module('commandApp', ['ngRoute']);
+var commandApp = angular.module('commandApp', ['ngRoute', 'ngSanitize']);
 
 (function(angular) {
     commandApp.config(function($routeProvider){

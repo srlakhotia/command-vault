@@ -1,2 +1,20 @@
 .allCategories
-    span all cagtegories
+    ul.categoryTable
+        li
+            ul.header
+                li.name
+                    span Name
+                li.description
+                    span Description
+                li.action
+                    span Actionbar
+        li
+            ul.tableContent.fullRow(ng-if="!allCategories.length")
+                li No Categories found
+            ul.tableContent(ng-if="allCategories.length", ng-repeat="category in allCategories", ng-click="showCategory(category)")
+                li.name
+                    span {{category.name}}
+                li.description
+                    span(ng-bind-html="category.description")
+                li.action
+                    span ACTION

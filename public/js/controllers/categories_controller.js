@@ -79,9 +79,8 @@ commandApp
             $scope.getAllCategories();
 
             $scope.saveCategory = function() {
-                if(!$scope.categoryForm.name) {
-                    return;
-                }
+                if(!$scope.categoryForm.name) { return; }
+
                 CategoryService.saveCategory($scope.categoryForm)
                     .then(function(response) {
                         $location.search('v', 'allCategories');
@@ -92,4 +91,12 @@ commandApp
             }
 
             $scope.loadRoute($routeParams.v);
+
+            $scope.showCategory = function showCategory(category) {
+                $scope.subnavLinks.push({
+                    name: category.name.substr(0, 30),
+                    link: category.name,
+                    canBeClosed: true
+                })
+            };
     }]);
